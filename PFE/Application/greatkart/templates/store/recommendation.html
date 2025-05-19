@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="custom-card">
+        <h1>les recommandations</h1>
+    </div>
+
+    <div class="row g-4 my-5">
+        {% if recommendations %}
+            {% for product in recommendations %}
+                <div class="col-md-4">
+                    <figure class="card card-product-grid">
+                        <div class="img-wrap">
+                            <a href="{{ product.get_url }}">
+                                <img src="{{ MEDIA_URL }}{{ product.images }}" class="img-fluid" alt="{{ product.title }}">
+                            </a>
+                        </div>
+                        <figcaption class="info-wrap">
+                            <div class="fix-height">
+                                <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+                                <div class="price-wrap mt-2">
+                                    <span class="price"> {{ product.price }} MAD</span>
+                                </div>
+                            </div>
+                            <a href="" class="btn btn-block btn-primary">Voir les détails</a>
+
+                        </figcaption>
+                    </figure>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col">
+                <div class="alert alert-warning" role="alert">
+                    Aucune recommandation disponible.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

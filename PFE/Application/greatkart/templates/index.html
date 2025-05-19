@@ -1,0 +1,186 @@
+{% extends 'bas.html' %}
+{% load static %}
+{% block content %}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            tableau de bord 
+            
+        </h1>
+        <ol class="breadcrumb">
+            
+            <li class="active"><a href="{% url 'dashboard' %}"></a>tableau de bord </li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ users_count }}</h3>
+                        <p>total des comptes </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-bag"></i></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ profiles_count }}</h3>
+                        <p>total des profiles </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-stats-bars"></i></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{ orders_count }}</h3>
+                        <p>Total des commandes </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-person-add"></i></div>
+                   
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{ products_count }}</h3>
+                        <p>Total des produits </p>
+                    </div>
+                    <div class="icon"><i class="ion ion-pie-graph"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title"> Clusters utilisateurs </h3>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="userClusterChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">évaluation de produit</h3>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="ratingsChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialiser le graphique des clusters d'utilisateurs
+        var ctx = document.getElementById('userClusterChart').getContext('2d');
+        var clusterData = JSON.parse('{{ cluster_data|escapejs }}');
+
+        var labels = Object.keys(clusterData);
+        var data = Object.values(clusterData);
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Users',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }
+            }
+        });
+
+        // Initialiser le graphique des évaluations des produits
+        var ctxRatings = document.getElementById('ratingsChart').getContext('2d');
+        var ratingsData = JSON.parse('{{ ratings_data|escapejs }}');
+
+        var ratingLabels = Object.keys(ratingsData);
+        var ratingValues = Object.values(ratingsData);
+
+        var ratingsChart = new Chart(ctxRatings, {
+            type: 'doughnut',
+            data: {
+                labels: ratingLabels,
+                datasets: [{
+                    label: 'Number of Reviews',
+                    data: ratingValues,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' reviews';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionnez tous les liens "More info"
+    const moreInfoLinks = document.querySelectorAll('.small-box-footer');
+
+    // Ajoutez un gestionnaire d'événements à chaque lien
+    moreInfoLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();  // Empêche le comportement par défaut du lien
+
+            // Récupérez le contenu de la balise <p> à l'intérieur du small-box correspondant
+            const infoContent = link.parentElement.querySelector('p').textContent;
+
+            // Affichez les informations dans la console pour le débogage (vous pouvez modifier cela pour afficher les informations dans un autre endroit de votre page)
+            console.log('More info clicked:', infoContent);
+        });
+    });
+});
+
+</script>
+
+{% endblock %}

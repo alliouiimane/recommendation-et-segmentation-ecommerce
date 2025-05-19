@@ -1,0 +1,12 @@
+<aside class="col-md-3">
+  <!--   BARRE LATÉRALE   -->
+  <ul class="list-group">
+      <a class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'dasboard' %}"> Tableau de bord </a>
+      <a class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'my_orders' %}"> Mes commandes </a>
+      <a class="list-group-item {% if '/edit_profile/' in request.path %}active{% endif %}" href="{% url 'edit_profile' %}"> Modifier le profil </a>
+      <a class="list-group-item {% if '/change_password/' in request.path %}active{% endif %}" href="{% url 'change_password' %}"> Changer le mot de passe </a>
+  </ul>
+  <br>
+  <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Déconnexion</span> </a>
+  <!--   BARRE LATÉRALE .//FIN   -->
+</aside>

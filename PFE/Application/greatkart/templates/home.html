@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%   block content  %}
+<!-- ========================= SECTION PRINCIPALE ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+
+<div class="intro-banner-wrap">
+	<img src="{% static 'images/banners/maroc.PNG' %}" class="img-fluid rounded" style="width: 100%; height: auto;">
+
+</div>
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PRINCIPALE FIN// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+	<form method="get" action="{% url 'recommendations' %}">
+		{% csrf_token %}
+		<button type="submit" class="btn btn-outline-primary float-right">Voir les recommandations</button>
+	</form>
+	
+<header class="section-heading">
+	<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">Voir tout</a>
+	<h3 class="section-title">Produits populaires</h3>
+</header><!-- sect-heading -->
+
+	
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/oroirpo.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title">Akar Fassi
+				</a>
+				<div class="price mt-1">13 MAD</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/mmmmmmmm.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title">Pouf  en cuire </a>
+				<div class="price mt-1">39.00 MAD</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/cndnf.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title">Eau de Rose Marocainee</a>
+				<div class="price mt-1">49.00 MAD</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/tagine.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title"> tagine</a>
+				<div class="price mt-1">139.00 MAD</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/kdwod.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title"> Assiette en Faïence de Safi</a>
+				<div class="price mt-1">179.00 MAD</div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	</div> <!-- col.// -->
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="./product-detail.html" class="img-wrap"> <img src="{% static 'images/items/tyty.PNG' %}"> </a>
+			<figcaption class="info-wrap">
+				<a href="./product-detail.html" class="title">Tapis Berbères Authentiques</a>
+				<div class="price mt-1">189,98 MAD </div> <!-- price-wrap.// -->
+			</figcaption>
+		</div>
+	
+
+	
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+<!-- ========================= SECTION FIN// ========================= -->
+
+
+
+
+
+</body>
+</html>
+{%   endblock %}

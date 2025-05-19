@@ -1,0 +1,57 @@
+{% extends 'bas.html' %}
+{% load static %}
+
+{% block content %}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>
+            tableau de bord 
+            
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>home</a></li>
+            <li class="active">tableau de bord </li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Liste des Produits</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nom du categories</th>
+                                    
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>{{ category.category_name }}</td>
+                                        
+                                    
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3">Aucun produit disponible pour le moment.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ========================= CONTENU DE LA SECTION ========================= -->
+<section class="section-conten padding-y" style="min-height:84vh">
+
+<!-- ============================ COMPOSANT CONNEXION   ================================= -->
+
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert alert-info text-center" role='alert' style="max-width: 1000px; margin-top:100px;">
+  Inscription réussie. Veuillez vérifier votre e-mail pour activer votre compte [{{request.GET.email}}]  
+  <br><br>
+  Déjà vérifié ? <a href="{% url 'login' %}">Connectez-vous</a>
+ </div>
+
+{% else %}
+
+    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+      <div class="card-body">
+        {% include 'includes/alerts.html' %}
+      <h4 class="card-title mb-4">Se connecter</h4>
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %} 
+        <div class="form-group">
+            <input type="email" class="form-control" placeholder="Adresse e-mail" name="email">
+            <!-- Ajoutez l'attribut name="email" pour identifier ce champ dans request.POST -->
+        </div> <!-- form-group// -->
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Mot de passe" name="password">
+        </div> <!-- form-group// -->
+                  
+        <div class="form-group">
+            <a href="{% url 'forgotPassword' %}" class="float-right">Mot de passe oublié ?</a>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+        </div> <!-- form-group// -->    
+    </form>
+    
+      </div> <!-- card-body.// -->
+    </div> <!-- card .// -->
+
+     <p class="text-center mt-4">Vous n'avez pas de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
+     <br><br>
+<!-- ============================ COMPOSANT CONNEXION  FIN.// ================================= -->
+{% endif %}
+
+</section>
+<!-- ========================= CONTENU DE LA SECTION FIN// ========================= -->
+{% endblock %}
